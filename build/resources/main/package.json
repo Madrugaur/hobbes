@@ -1,0 +1,11 @@
+{
+  "name": "Hobbes",
+  "version": "0.1",
+  "description": "RIT Squad Server Management",
+  "main": "hobbs.js",
+  "author": "braden little",
+  "dependencies": {
+    "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+    "winston": "^3.3.3"
+  }
+}
