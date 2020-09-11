@@ -10,6 +10,7 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -69,6 +70,9 @@ public class Listener extends ListenerAdapter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void onGuildMemberJoin(GuildMemberJoinEvent event){
+
     }
     private void initJSON() throws IOException {
         me_package = IO.readJSON("package.json");
