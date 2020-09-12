@@ -46,42 +46,27 @@ public class Listener extends ListenerAdapter {
     private JDA jdaInstance;
     private User me;
     private String admin_name = "";
-
     private Role everyone;
     private Role online;
-
-    private JSONObject me_package;
-    private JSONObject auth;
-    static Guild guild;
+    private Guild guild;
+    private Executor executor = new Executor();
     @Override
     public void onReady(ReadyEvent event){
-        try {
-            System.out.println("Hobbes Boot Start");
-            jdaInstance = event.getJDA();
-            /** JSON objects **/
-            initJSON();
-            /*** Self Reference **/
-            initSelfReference();
-            /** Useful Roles **/
-            initRoles();
-            /** Tasks **/
-            scheduleTasks();
-            System.out.println("Hobbes Online");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    public void onGuildMemberJoin(GuildMemberJoinEvent event){
-
-    }
-    private void initJSON() throws IOException {
-        me_package = IO.readJSON("package.json");
-        auth = IO.readJSON("auth.json");
+        System.out.println("Hobbes Boot Start");
+        jdaInstance = event.getJDA();
+        System.out.println(jdaInstance.getGuilds());
+        /*** Self Reference **/
+        initSelfReference();
+        /** Useful Roles **/
+        initRoles();
+        /** Tasks **/
+        scheduleTasks();
+        System.out.println("Hobbes Online");
     }
     private void initSelfReference(){
-        me = jdaInstance.getUsersByName(me_package.getString("name"), false).get(0);
-        guild = jdaInstance.getGuildById(auth.getString("server.id"));
-        admin_name = auth.getString("admin");
+        me = jdaInstance.getUsersByName(InformationBucket.fromPackage("name"), false).get(0);
+        guild = jdaInstance.getGuildById(InformationBucket.fromAuth("server.id"));
+        admin_name = InformationBucket.fromAuth("admin");
     }
     private void initRoles(){
         everyone = getRole("@everyone");
@@ -98,6 +83,11 @@ public class Listener extends ListenerAdapter {
         Scheduler.scheduleRegular(new BirthdayPingTask(), Clock.getSeconds(10));
     }
     @Override
+    public void onGuildMemberJoin(GuildMemberJoinEvent event){
+        executor.exc_welcome(event);
+    }
+
+    @Override
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event){
        if (event.getNewOnlineStatus().name().contentEquals("ONLINE")){
            event.getGuild().addRoleToMember(event.getMember(), online).complete();
@@ -107,7 +97,7 @@ public class Listener extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event){
         User sender = event.getAuthor();
         Message message = event.getMessage();
-        Executor executor = new Executor();
+
         List<User> mentions = message.getMentionedUsers();
         if (mentions.size() == 0) return;
         if (!mentions.get(0).equals(me)) return;

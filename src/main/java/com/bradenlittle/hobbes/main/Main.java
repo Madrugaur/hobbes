@@ -15,7 +15,7 @@ public class Main {
         JSONObject jobj = IO.readJSON("auth.json");
         String token = jobj.getString("token");
         JDABuilder builder = JDABuilder.createDefault(token);
-        builder.enableIntents(Arrays.asList(GatewayIntent.valueOf("GUILD_PRESENCES")));
+        builder.enableIntents(Arrays.asList(GatewayIntent.valueOf("GUILD_PRESENCES"), GatewayIntent.valueOf("GUILD_MEMBERS")));
         builder.addEventListeners(new Listener());
         builder.build();
     }

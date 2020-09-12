@@ -22,9 +22,13 @@ public class IO {
     private static String res_dir = "src/main/resources";
     private static String connection = "jdbc:sqlite:" + res_dir +"/hobbes.db";
     public static JSONObject readJSON(String name) throws IOException {
-        String source = Files.readString(Paths.get(user_dir, res_dir, name));
+        String source = readString(name);
         JSONObject jobj = new JSONObject(source);
         return jobj;
+    }
+    public static String readString(String name) throws IOException {
+        String source = Files.readString(Paths.get(user_dir, res_dir, name));
+        return source;
     }
     @SuppressWarnings({})
     public static Comic getComic() throws MalformedURLException {

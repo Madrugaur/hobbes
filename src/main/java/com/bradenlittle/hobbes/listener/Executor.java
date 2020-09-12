@@ -1,8 +1,14 @@
 package com.bradenlittle.hobbes.listener;
 
 import com.bradenlittle.hobbes.util.*;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.entities.Invite;
 import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
+import net.dv8tion.jda.api.events.Event;
+import net.dv8tion.jda.api.events.ReadyEvent;
+import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.io.File;
@@ -72,9 +78,26 @@ public class Executor {
         if (args.length == 0) {
             queueMessage("There's no one to insult!", event);
         } else {
-            message += StringUtil.construct(args) + Insulter.getInsult();
+            if (StringUtil.construct(args).toLowerCase().contentEquals("me")){
+                message += event.getMember().getNickname() + Insulter.getInsult();
+            } else {
+                message += StringUtil.construct(args) + Insulter.getInsult();
+            }
             queueMessage(message, event);
         }
+    }
+    public void exc_welcome(GuildMemberJoinEvent event){
+        User sender = event.getUser();
+        //if (sender.isBot()) return;
+        JDA jda = event.getJDA();
+        TextChannel role_claim_channel = jda.getTextChannelsByName("role-claim", false).get(0);
+        jda.getTextChannelsByName("general", false).get(0)
+                .sendMessage(InformationBucket.getWelcomeMessage()
+                            .replace("{MENTION}", sender.getAsMention())
+                            .replace("{ROLE_CLAIM}", role_claim_channel.getAsMention()))
+                .queue();
+
+
     }
     public void queueMessage(String text, MessageReceivedEvent event){
         event.getChannel().sendMessage(text).queue();
