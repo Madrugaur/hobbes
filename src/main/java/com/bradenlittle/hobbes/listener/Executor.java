@@ -81,9 +81,13 @@ public class Executor {
             if (StringUtil.construct(args).toLowerCase().contentEquals("me")){
                 message += event.getMember().getNickname() + Insulter.getInsult();
             } else {
+                if (event.getMessage().getMentionedUsers().size() > 1){
+
+                }
                 message += StringUtil.construct(args) + Insulter.getInsult();
             }
             queueMessage(message, event);
+            event.getMessage().delete().queue();
         }
     }
     public void exc_welcome(GuildMemberJoinEvent event){
