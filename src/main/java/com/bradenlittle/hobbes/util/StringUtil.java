@@ -1,5 +1,10 @@
 package com.bradenlittle.hobbes.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
+
 public class StringUtil {
     public static String construct(String[] args){
         return construct(args, 0, args.length, ' ');
@@ -19,7 +24,18 @@ public class StringUtil {
         }
         return sb.toString();
     }
-
+    public static <K extends Iterable<Object>> String[] iteratorToArray(K iterable){
+        ArrayList<String> list = new ArrayList<>();
+        iterable.forEach(item -> list.add(String.valueOf(item)));
+        return list.toArray(new String[] {});
+    }
+    public static <K,V> HashMap<K, V> makeTable(K[] keys, V[] vals){
+        HashMap<K,V> map = new HashMap<>();
+        for (int i = 0; i < keys.length; i++){
+            map.put(keys[i], vals[i]);
+        }
+        return map;
+    }
     public static String construct(String[] split, int i, char c) {
         return construct(split, i, split.length, c);
     }

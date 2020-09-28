@@ -20,7 +20,10 @@ import java.sql.SQLException;
 public class IO {
     private static String user_dir = System.getProperty("user.dir");
     private static String res_dir = "src/main/resources";
-    private static String connection = "jdbc:sqlite:" + res_dir +"/hobbes.db";
+    //private static String connection = "jdbc:sqlite:" + res_dir +"/hobbes.db";
+    public static String getResourceDir(){
+        return res_dir;
+    }
     public static JSONObject readJSON(String name) throws IOException {
         String source = readString(name);
         JSONObject jobj = new JSONObject(source);
@@ -50,7 +53,7 @@ public class IO {
         }
         return comic;
     }
-    public static Connection getSQLConnection(){
+    public static Connection getSQLConnection(String connection){
         try {
             return DriverManager.getConnection(connection);
         } catch (SQLException e){

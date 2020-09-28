@@ -4,6 +4,7 @@
   "description": "RIT Squad Server Management",
   "main": "hobbs.js",
   "author": "braden little",
+  "sql.url": "jdbc:sqlite: {resource_dir}/hobbes.db",
   "dependencies": {
     "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
     "winston": "^3.3.3"
