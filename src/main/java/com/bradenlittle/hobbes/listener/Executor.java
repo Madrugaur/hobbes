@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Executor {
-
+    private boolean muted = false;
     public void exc_draw_symbol(MessageReceivedEvent event, String[] args) {
         if (args.length < 1) {
             queueMessage("Too few arguments!", event);
@@ -59,6 +59,12 @@ public class Executor {
                 case "call":
                     queueMessage(String.format("hobbes-%s is alive!", this.hashCode()), event);
                     break;
+                case "mute":
+                    muted = true;
+                    break;
+                case "unmute":
+                    muted = false;
+                    break;
             }
 
         }
@@ -85,25 +91,6 @@ public class Executor {
         } else {
             String text = StringUtil.construct(args);
             queueMessage(text, event);
-            event.getMessage().delete().queue();
-        }
-    }
-
-    public void exc_insult(MessageReceivedEvent event, String[] args, Role online) {
-        boolean pinged = true;
-        String message = online.getAsMention() + ", ";
-        if (args.length == 0) {
-            queueMessage("There's no one to insult!", event);
-        } else {
-            if (StringUtil.construct(args).toLowerCase().contentEquals("me")) {
-                message += event.getMember().getNickname() + Insulter.getInsult();
-            } else {
-                if (event.getMessage().getMentionedUsers().size() > 1) {
-
-                }
-                message += StringUtil.construct(args) + Insulter.getInsult();
-            }
-            queueMessage(message, event);
             event.getMessage().delete().queue();
         }
     }
@@ -175,6 +162,7 @@ public class Executor {
     }
 
     public void queueMessage(String text, MessageReceivedEvent event) {
+        if (muted) return;
         event.getChannel().sendMessage(text).queue();
     }
 
@@ -183,6 +171,7 @@ public class Executor {
     }
 
     public void queueTyping(MessageReceivedEvent event) {
+        if (muted) return;
         event.getChannel().sendTyping().queue();
     }
 }

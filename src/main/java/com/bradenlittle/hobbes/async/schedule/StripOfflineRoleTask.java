@@ -1,6 +1,5 @@
-package com.bradenlittle.hobbes.schedule;
+package com.bradenlittle.hobbes.async.schedule;
 
-import com.shapesecurity.salvation.data.GUID;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;

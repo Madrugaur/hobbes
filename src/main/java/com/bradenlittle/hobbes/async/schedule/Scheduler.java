@@ -1,4 +1,4 @@
-package com.bradenlittle.hobbes.schedule;
+package com.bradenlittle.hobbes.async.schedule;
 
 import java.util.Timer;
 import java.util.TimerTask;

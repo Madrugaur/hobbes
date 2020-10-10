@@ -1,7 +1,9 @@
 package com.bradenlittle.hobbes.listener;
 
-import com.bradenlittle.hobbes.schedule.Scheduler;
-import com.bradenlittle.hobbes.schedule.StripOfflineRoleTask;
+import com.bradenlittle.hobbes.async.schedule.InactiveUserSearchTask;
+import com.bradenlittle.hobbes.async.schedule.Scheduler;
+import com.bradenlittle.hobbes.async.schedule.StripOfflineRoleTask;
+import com.bradenlittle.hobbes.async.thread.AsyncMessageDateLogger;
 import com.bradenlittle.hobbes.util.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
@@ -20,17 +22,21 @@ import java.util.List;
 /*  *-------*
     | IDEAS:
     | - print shapes that players ask for and use the symbol they provide - working
-    | - save memes do database and post upon request
-    | - let users add themselves to a Do Not Insult list
     | - let users opt out of being pinged by hobbes
-    | - implement "Operation Go To Sleep" by deleting all chats between certain times
     | - boot people if they haven't send a message in a while
-    |   + cache the time stamp of the last message sent by every user
+    |   + cache the time stamp of the last message sent by every user (done)
+    |   + schedule task to check how long its been (done-ish)
+    |     - if longer than 7 days, message about staying in the server (def not done)
+    | - rework Role and Channel system to be look up tables for increased efficiency
+    | - add admin commands to mute and unmute
+    | - refactor executor to work as objects
+    |   + each "command" -> becomes command group
+    |   + switch around group name then switch around subcommand in side class
+    |   + allows for unique behavior and better organization
     *-------*
     *-------*
     | COMPLETE:
     | - post random CH comic in chat
-    | - insult people
     | - mark people with online role
     |   + find player online event
     | - role stuff
@@ -90,6 +96,7 @@ public class Listener extends ListenerAdapter {
         if (online != null) {
             Scheduler.scheduleRegular(new StripOfflineRoleTask(guild.getMembers(), guild, online), Clock.getMinutes(5));
         } else System.out.println("Failed to schedule new StripOfflineRoleTask! Online is null");
+        Scheduler.scheduleRegular(new InactiveUserSearchTask(), Clock.getSeconds(10));
     }
 
     @Override
@@ -108,10 +115,12 @@ public class Listener extends ListenerAdapter {
     public void onMessageReceived(MessageReceivedEvent event) {
         User sender = event.getAuthor();
         Message message = event.getMessage();
+
         List<User> mentions = message.getMentionedUsers();
+        if (sender.isBot()) return;
+        AsyncMessageDateLogger.log(message);
         if (mentions.size() == 0) return;
         if (!mentions.get(0).equals(me)) return;
-        if (sender.isBot()) return;
         String content = message.getContentDisplay().trim();
         if (!content.contains(" ")) {
             executor.queueMessage("What's up?", event);
@@ -134,9 +143,6 @@ public class Listener extends ListenerAdapter {
                     break;
                 case "say":
                     executor.exc_say(event, args);
-                    break;
-                case "insult":
-                    executor.exc_insult(event, args, online);
                     break;
                 case "comic":
                     executor.exc_comic(event, args);

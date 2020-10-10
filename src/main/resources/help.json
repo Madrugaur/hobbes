@@ -1,7 +1,6 @@
 {
   "admin": ["Allow access to admin commands", "@hobbes admin <command> [args]"],
   "say": ["Hobbes will mime you!", "@hobbes say [message]"],
-  "insult": ["Hobbes will say something rude!", "@hobbes insult <name> / \"me\""],
   "comic": ["Hobbes will find a comic for you to enjoy!", "@hobbes comic"],
   "draw": ["Hobbes will draw the shape using the character you provide!", "@hobbes draw <shape> <character>"],
   "server": ["Allows access to the RIT Squad MC Server!", "@hobbes server <command>"],
