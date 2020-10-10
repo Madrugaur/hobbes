@@ -1,7 +1,5 @@
 package com.bradenlittle.hobbes.main;
 
-import com.bradenlittle.hobbes.util.SQL;
-
 import java.sql.SQLException;
 
 public class Tester {

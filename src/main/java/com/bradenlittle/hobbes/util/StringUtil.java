@@ -15,6 +15,9 @@ public class StringUtil {
     public static String construct(String[] args, int start){
         return construct(args, start, args.length, ' ');
     }
+    public static String construct(String[] split, int i, char c) {
+        return construct(split, i, split.length, c);
+    }
     public static String construct(String[] args, int start, int end, char separator){
         if (start > end) return null;
         StringBuilder sb = new StringBuilder();
@@ -36,7 +39,5 @@ public class StringUtil {
         }
         return map;
     }
-    public static String construct(String[] split, int i, char c) {
-        return construct(split, i, split.length, c);
-    }
+
 }

@@ -9,9 +9,9 @@ public class MinecraftServer {
     public static final int SERVER_STOP_FAILED = 1;
     public static final int SERVER_STOP_SUCCESS = 0;
     private static Process proc;
-    private static StreamJack output;
-    private static StreamJack error;
-    private static StreamInjector input;
+    private static StreamUtil.Jack output;
+    private static StreamUtil.Jack error;
+    private static StreamUtil.Injector input;
 
     static {
 
@@ -29,9 +29,9 @@ public class MinecraftServer {
         try {
             proc = processBuilder.start();
             // check to see if there is a running minecraft server and tie it to hobbes
-            output = new StreamJack(proc.getInputStream());
-            error = new StreamJack(proc.getErrorStream());
-            input = new StreamInjector(proc.getOutputStream());
+            output = new StreamUtil.Jack(proc.getInputStream());
+            error = new StreamUtil.Jack(proc.getErrorStream());
+            input = new StreamUtil.Injector(proc.getOutputStream());
             output.start();
             error.start();
 

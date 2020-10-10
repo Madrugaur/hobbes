@@ -29,7 +29,7 @@ import java.util.List;
     |     - if longer than 7 days, message about staying in the server (def not done)
     | - rework Role and Channel system to be look up tables for increased efficiency
     | - add admin commands to mute and unmute
-    | - refactor executor to work as objects
+    | - refactor executor to work with objects
     |   + each "command" -> becomes command group
     |   + switch around group name then switch around subcommand in side class
     |   + allows for unique behavior and better organization
