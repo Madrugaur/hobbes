@@ -1,5 +1,7 @@
 package com.bradenlittle.hobbes.async.schedule;
 
+import com.bradenlittle.hobbes.util.Clock;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
