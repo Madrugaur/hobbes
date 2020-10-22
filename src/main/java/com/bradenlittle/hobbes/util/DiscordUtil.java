@@ -12,7 +12,10 @@ public class DiscordUtil {
         channel.sendMessage(text).queue();
     }
     public static void queueErrorMessage(String text, TextChannel channel){
-        channel.sendMessage(text).queue();
+        channel.sendMessage(wrapText("```diff\n-%s\n```", text)).queue();
+    }
+    public static String wrapText(String wrapper, String text){
+        return String.format(wrapper, text);
     }
     public static void queueFile(File f, MessageReceivedEvent event) {
         event.getChannel().sendFile(f).queue();
@@ -31,8 +34,8 @@ public class DiscordUtil {
     }
     public static boolean isRestricted(Role role){
         HashMap<String, String> restrictedRoles = InformationBucket.fromServer("restricted.roles");
-        if (restrictedRoles.containsKey(role.getName())) { return false; }
-        else return true;
+        if (restrictedRoles.containsKey(role.getName())) { return true; }
+        else return false;
     }
     public static User getUser(long id){
         return InformationBucket.getJDA().getUserById(id);

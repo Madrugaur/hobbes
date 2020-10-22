@@ -1,6 +1,5 @@
 package com.bradenlittle.hobbes.util;
 
-import com.bradenlittle.hobbes.execution.Executor;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Role;
@@ -90,14 +89,14 @@ public final class InformationBucket {
 
     public static HashMap<String, String> fromServer(String key) {
         if (!keyExists(server, key)) return null;
-        String[] arr = StringUtil.iteratorToArray(server.getJSONArray(key));
+        String[] arr = StringUtil.iteratorToStringArray(server.getJSONArray(key).iterator());
         return StringUtil.makeTable(arr, arr);
     }
 
     public static String[] fromHelp(String key) {
         if (!keyExists(help, key)) return null;
         JSONArray arr = help.getJSONArray(key);
-        return StringUtil.iteratorToArray(arr);
+        return StringUtil.iteratorToStringArray(arr.iterator());
     }
     public static String fromMessages(String key){
         if (!keyExists(messages, key)) return null;

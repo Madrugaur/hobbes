@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.function.Function;
 
 public class StringUtil {
     public static String construct(String[] args){
@@ -27,9 +28,14 @@ public class StringUtil {
         }
         return sb.toString();
     }
-    public static <K extends Iterable<Object>> String[] iteratorToArray(K iterable){
+    public static String[] iteratorToStringArray(Iterator<?> iterator){
         ArrayList<String> list = new ArrayList<>();
-        iterable.forEach(item -> list.add(String.valueOf(item)));
+        iterator.forEachRemaining(item -> list.add(String.valueOf(item)));
+        return list.toArray(new String[] {});
+    }
+    public static <T, R> String[] iteratorToStringArray(Iterator<?> iterator, Function<T, String> function){
+        ArrayList<String> list = new ArrayList<>();
+        iterator.forEachRemaining(item -> list.add(function.apply((T) item)));
         return list.toArray(new String[] {});
     }
     public static <K,V> HashMap<K, V> makeTable(K[] keys, V[] vals){
