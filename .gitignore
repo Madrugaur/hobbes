@@ -1,6 +1,3 @@
-/src/main/resources/auth.json
-/src/main/resources/hobbes.db
-
 # Created by https://www.toptal.com/developers/gitignore/api/java,intellij,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=java,intellij,windows
 
@@ -26,7 +23,8 @@
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
 .idea/**/dbnavigator.xml
-
+/src/main/resources/auth.json
+/src/main/resources/hobbes.db
 # Gradle
 .idea/**/gradle.xml
 .idea/**/libraries
