@@ -68,7 +68,7 @@ public class Listener extends ListenerAdapter {
     @Override
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
         if (event.getNewOnlineStatus().name().contentEquals("ONLINE")) {
-            event.getGuild().addRoleToMember(event.getMember(), InformationBucket.getOnline()).complete();
+            event.getGuild(). addRoleToMember(event.getMember(), InformationBucket.getOnline()).complete();
         }
     }
 
