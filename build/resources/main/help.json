@@ -1,9 +1,0 @@
-{
-  "admin": ["Allow access to admin commands", "@hobbes admin <command> [args]"],
-  "say": ["Hobbes will mime you!", "@hobbes say [message]"],
-  "comic": ["Hobbes will find a comic for you to enjoy!", "@hobbes comic"],
-  "draw": ["Hobbes will draw the shape using the character you provide!", "@hobbes draw <shape> <character>"],
-  "server": ["Allows access to the RIT Squad MC Server!", "@hobbes server <command>"],
-  "help": ["Hobbes will help you out!", "@hobbes help <command>"],
-  "role": ["Ask hobbes to do role things","@hobbes role <command>"]
-}
