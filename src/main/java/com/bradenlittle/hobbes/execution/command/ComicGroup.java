@@ -8,7 +8,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.net.MalformedURLException;
 
-public class ComicGroup extends CommandGroup{
+public class ComicGroup implements CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         return paste(event.getTextChannel());

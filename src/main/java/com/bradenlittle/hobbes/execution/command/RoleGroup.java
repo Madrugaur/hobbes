@@ -9,7 +9,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.List;
 import java.util.function.Function;
 
-public class RoleGroup extends CommandGroup{
+public class RoleGroup implements CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         switch (args[0]){
