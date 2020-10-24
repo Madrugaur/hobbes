@@ -21,8 +21,8 @@ public class SQLTask {
         statements.add(command);
         arguments.add(args);
     }
-    public void isQuery(boolean isQuery){
-        this.query = isQuery;
+    public void setQuery(boolean query){
+        this.query = query;
     }
     public boolean isQuery(){
         return query;
