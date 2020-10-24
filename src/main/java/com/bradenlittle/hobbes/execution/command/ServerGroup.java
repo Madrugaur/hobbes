@@ -6,7 +6,7 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.w3c.dom.Text;
 
-public class ServerGroup extends CommandGroup {
+public class ServerGroup implements CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         switch (args[0]){
