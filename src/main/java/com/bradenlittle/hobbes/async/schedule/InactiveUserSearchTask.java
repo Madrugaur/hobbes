@@ -13,8 +13,16 @@ import java.util.Date;
 import java.util.TimerTask;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * This class asynchronously submits a query to the SQL Database for the Discord user ids that have a timestamp older than 7 days. It
+ * then attempts to remove the associated members from the guild.
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class InactiveUserSearchTask extends TimerTask {
-
+    /**
+     *  This is the main function of this class. It is called by a java.util.Timer at a specific time interval.
+     *  It gets the results from the SQL database and then attempts to remove the returned members.
+     */
     @Override
     public void run() {
         SQLTask search = new SQLTask();
@@ -28,6 +36,14 @@ public class InactiveUserSearchTask extends TimerTask {
             e.printStackTrace();
         }
     }
+
+    /**
+     * This is the actual method that attempts to kick a user.
+     * It firsts sends a private message that they are being removed due to inactivity. If they would like to rejoin the
+     * server, they can reach out to an admin or the server owner.
+     * In the future, I would like to automate the rejoin process.
+     * @param id id of the member
+     */
     private void kick(String id){
         User user = DiscordUtil.getUser(id);
         if (user.equals(InformationBucket.getMe())) return;
