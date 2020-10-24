@@ -3,18 +3,18 @@ package com.bradenlittle.hobbes.async.thread;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
 
 public class AsyncSQLStatementConsumer implements Runnable {
-    private Connection connection;
-    private BlockingQueue<SQLTask> tasks;
+    private final Connection connection;
+    private final BlockingQueue<SQLTask> tasks;
 
     public AsyncSQLStatementConsumer(BlockingQueue<SQLTask> tasks, Connection connection) {
         this.tasks = tasks;
         this.connection = connection;
     }
+
     @Override
     public void run() {
         while (true) {

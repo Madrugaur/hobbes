@@ -5,12 +5,13 @@ import com.bradenlittle.hobbes.util.InformationBucket;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class HelpGroup extends CommandGroup{
+public class HelpGroup extends CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         return help(event.getTextChannel(), args);
     }
-    private boolean help(TextChannel channel, String[] args){
+
+    private boolean help(TextChannel channel, String[] args) {
         String line_format = "**%s**\n\tDescription: [ %s ] \n\tUsage: [ %s ]\n";
         if (args == null) {
             String helpMenu = "";

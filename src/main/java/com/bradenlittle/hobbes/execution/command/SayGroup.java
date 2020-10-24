@@ -5,12 +5,13 @@ import com.bradenlittle.hobbes.util.StringUtil;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class SayGroup extends CommandGroup{
+public class SayGroup extends CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         return say(event.getTextChannel(), args);
     }
-    private boolean say(TextChannel channel, String[] args){
+
+    private boolean say(TextChannel channel, String[] args) {
         if (args.length == 0) {
             DiscordUtil.queueMessage("Nothing to say!", channel);
             return false;

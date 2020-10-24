@@ -8,12 +8,13 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.net.MalformedURLException;
 
-public class ComicGroup extends CommandGroup{
+public class ComicGroup extends CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         return paste(event.getTextChannel());
     }
-    private boolean paste(TextChannel channel){
+
+    private boolean paste(TextChannel channel) {
         DiscordUtil.queueTyping(channel);
         Comic comic = null;
         try {

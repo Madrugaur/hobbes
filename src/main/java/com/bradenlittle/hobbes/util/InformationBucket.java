@@ -6,7 +6,6 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
-import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -28,6 +27,7 @@ public final class InformationBucket {
     private static Role online;
     private static Guild guild;
     private static HashMap<String, TextChannel> textChannelHashMap;
+
     static {
         try {
             _package = IO.readJSON("package.json");
@@ -71,12 +71,13 @@ public final class InformationBucket {
         online = getRole("Online");
     }
 
-    public static void initChannelTable(){
+    public static void initChannelTable() {
         List<TextChannel> list = guild.getTextChannels();
-        for (TextChannel tc : list){
+        for (TextChannel tc : list) {
             textChannelHashMap.put(tc.getName(), tc);
         }
     }
+
     public static String fromAuth(String key) {
         if (!keyExists(auth, key))
             throw new IllegalArgumentException(String.format("auth key \"%s\" does not exist%n", key));
@@ -102,11 +103,13 @@ public final class InformationBucket {
         JSONArray arr = help.getJSONArray(key);
         return StringUtil.iteratorToStringArray(arr.iterator());
     }
-    public static String fromMessages(String key){
+
+    public static String fromMessages(String key) {
         if (!keyExists(messages, key))
             throw new IllegalArgumentException(String.format("messages key \"%s\" does not exist%n", key));
         return messages.getString(key);
     }
+
     public static String[][] getHelpPage() {
         String[] keys = help.keySet().toArray(new String[]{});
         String[][] table = new String[keys.length][];
@@ -116,11 +119,13 @@ public final class InformationBucket {
         }
         return table;
     }
-    public static TextChannel fromTextChannelTable(String key){
+
+    public static TextChannel fromTextChannelTable(String key) {
         if (!textChannelHashMap.containsKey(key))
             throw new IllegalArgumentException(String.format("text channel table key \"%s\" does not exist%n", key));
         return textChannelHashMap.get(key);
     }
+
     public static User getMe() {
         return me;
     }

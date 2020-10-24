@@ -10,7 +10,8 @@ public class DrawGroup extends CommandGroup {
     public boolean process(MessageReceivedEvent event, String[] args) {
         return false;
     }
-    private boolean draw(TextChannel channel, String[] args){
+
+    private boolean draw(TextChannel channel, String[] args) {
         if (args.length < 1) {
             DiscordUtil.queueMessage("Too few arguments!", channel);
             return false;
