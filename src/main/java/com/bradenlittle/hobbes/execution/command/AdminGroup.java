@@ -20,7 +20,7 @@ public class AdminGroup extends CommandGroup{
         return false;
     }
     private boolean validateSender(User sender){
-        if (sender.getName().toLowerCase().contentEquals(Objects.requireNonNull(InformationBucket.fromAuth("admin")))){
+        if (sender.getName().toLowerCase().contentEquals(InformationBucket.fromAuth("admin"))){
             return true;
         } else return false;
     }
