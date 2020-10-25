@@ -37,7 +37,6 @@ public class StreamUtil {
             }
         }
     }
-
     /**
      * Represents a Stream Injector, i.e. an object that injects data into a stream
      * @author Madrugaur (https://github.com/Madrugaur)

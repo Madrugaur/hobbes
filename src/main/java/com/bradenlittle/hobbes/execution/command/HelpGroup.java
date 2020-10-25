@@ -38,8 +38,11 @@ public class HelpGroup implements CommandGroup {
             DiscordUtil.queueMessage(helpMenu, channel);
         } else {
             String[] result = InformationBucket.fromHelp(args[0]);
-            if (result == null) DiscordUtil.queueErrorMessage("I don't know what \"" + args[0] + "\" is...", channel);
-            else DiscordUtil.queueMessage(String.format(line_format, args[0], result[0], result[1]), channel);
+            try {
+                DiscordUtil.queueMessage(String.format(line_format, args[0], result[0], result[1]), channel);
+            } catch (IllegalArgumentException e) {
+                DiscordUtil.queueErrorMessage("I don't know what \"" + args[0] + "\" is...", channel);
+            }
         }
         return true;
     }

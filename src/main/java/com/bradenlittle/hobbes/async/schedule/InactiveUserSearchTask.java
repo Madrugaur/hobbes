@@ -29,7 +29,7 @@ public class InactiveUserSearchTask extends TimerTask {
         search.addStatement("SELECT user_id FROM messages WHERE date < %s", new Date().getTime() - Clock.getDays(7));
         try {
             ResultSet results = SQLTaskExecutor.query(search).get();
-            while (results.next()){
+            while (results.next()) {
                 kick(results.getString(1));
             }
         } catch (InterruptedException | SQLException | ExecutionException e) {
@@ -49,7 +49,7 @@ public class InactiveUserSearchTask extends TimerTask {
         if (user.equals(InformationBucket.getMe())) return;
         System.out.println(user.getName());
         user.openPrivateChannel().queue((privateChannel -> {
-                privateChannel.sendMessage(InformationBucket.fromMessages("inactive")).queue();
+            privateChannel.sendMessage(InformationBucket.fromMessages("inactive")).queue();
         }));
         InformationBucket.getGuild().getMember(user).kick("Inactivity").queue();
     }

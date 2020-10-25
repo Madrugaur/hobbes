@@ -32,6 +32,7 @@ public final class InformationBucket {
     private static Role online;
     private static Guild guild;
     private static HashMap<String, TextChannel> textChannelHashMap;
+
     static {
         try {
             _package = IO.readJSON("package.json");
@@ -99,7 +100,7 @@ public final class InformationBucket {
      */
     public static void initChannelTable(){
         List<TextChannel> list = guild.getTextChannels();
-        for (TextChannel tc : list){
+        for (TextChannel tc : list) {
             textChannelHashMap.put(tc.getName(), tc);
         }
     }
@@ -110,9 +111,9 @@ public final class InformationBucket {
      * @return value associated with the key
      */
     public static String fromAuth(String key) {
-        if (!keyExists(auth, key)) return null;
-        String val = auth.getString(key);
-        return val;
+        if (!keyExists(auth, key))
+            throw new IllegalArgumentException(String.format("auth key \"%s\" does not exist%n", key));
+        return auth.getString(key);
     }
 
     /**
@@ -121,7 +122,8 @@ public final class InformationBucket {
      * @return value associated with the key
      */
     public static String fromPackage(String key) {
-        if (!keyExists(_package, key)) return null;
+        if (!keyExists(_package, key))
+            throw new IllegalArgumentException(String.format("package key \"%s\" does not exist%n", key));
         return _package.getString(key);
     }
     /**
@@ -130,7 +132,8 @@ public final class InformationBucket {
      * @return value associated with the key
      */
     public static HashMap<String, String> fromServer(String key) {
-        if (!keyExists(server, key)) return null;
+        if (!keyExists(server, key))
+            throw new IllegalArgumentException(String.format("server key \"%s\" does not exist%n", key));
         String[] arr = StringUtil.iteratorToStringArray(server.getJSONArray(key).iterator());
         return StringUtil.makeTable(arr, arr);
     }
@@ -140,7 +143,8 @@ public final class InformationBucket {
      * @return value associated with the key
      */
     public static String[] fromHelp(String key) {
-        if (!keyExists(help, key)) return null;
+        if (!keyExists(help, key))
+            throw new IllegalArgumentException(String.format("help key \"%s\" does not exist%n", key));
         JSONArray arr = help.getJSONArray(key);
         return StringUtil.iteratorToStringArray(arr.iterator());
     }

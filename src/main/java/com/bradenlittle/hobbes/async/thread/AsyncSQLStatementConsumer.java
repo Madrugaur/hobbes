@@ -13,8 +13,8 @@ import java.util.concurrent.BlockingQueue;
  * @author Madrugaur (https://github.com/Madrugaur)
  */
 public class AsyncSQLStatementConsumer implements Runnable {
-    private Connection connection;
-    private BlockingQueue<SQLTask> tasks;
+    private final Connection connection;
+    private final BlockingQueue<SQLTask> tasks;
 
     /**
      * Constructor, inits local variables
@@ -25,6 +25,7 @@ public class AsyncSQLStatementConsumer implements Runnable {
         this.tasks = tasks;
         this.connection = connection;
     }
+
     @Override
     public void run() {
         while (true) {

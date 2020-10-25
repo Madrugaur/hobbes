@@ -27,8 +27,8 @@ public class Shape {
      */
     private static String getSquare(String symbol){
         String r = "";
-        for (int i = 0; i < 4; i++){
-            for (int k = 0; k < 4; k++){
+        for (int i = 0; i < 4; i++) {
+            for (int k = 0; k < 4; k++) {
                 r += symbol + spaces(3);
             }
             r += "\n";
@@ -43,8 +43,8 @@ public class Shape {
      */
     private static String spaces(int i){
         String r = "";
-        for (;i >= 0; i--){
-            r+= " ";
+        for (; i >= 0; i--) {
+            r += " ";
         }
         return r;
     }

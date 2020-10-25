@@ -86,8 +86,7 @@ public class DiscordUtil {
      */
     public static boolean isRestricted(Role role){
         HashMap<String, String> restrictedRoles = InformationBucket.fromServer("restricted.roles");
-        if (restrictedRoles.containsKey(role.getName())) { return true; }
-        else return false;
+        return restrictedRoles.containsKey(role.getName());
     }
 
     /**

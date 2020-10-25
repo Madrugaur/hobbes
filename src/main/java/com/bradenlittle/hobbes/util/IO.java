@@ -22,8 +22,8 @@ import java.sql.SQLException;
  * @author Madrugaur (https://github.com/Madrugaur)
  */
 public class IO {
-    private static String user_dir = System.getProperty("user.dir");
-    private static String res_dir = "src/main/resources";
+    private static final String user_dir = System.getProperty("user.dir");
+    private static final String res_dir = "src/main/resources";
     //private static String connection = "jdbc:sqlite:" + res_dir +"/hobbes.db";
 
     /**
@@ -90,7 +90,7 @@ public class IO {
     public static Connection getSQLConnection(String connection){
         try {
             return DriverManager.getConnection(connection);
-        } catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
             return null;
         }

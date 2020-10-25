@@ -1,7 +1,6 @@
 package com.bradenlittle.hobbes.util;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.function.Function;
@@ -62,7 +61,7 @@ public class StringUtil {
     public static String construct(String[] args, int start, int end, char separator){
         if (start > end) return null;
         StringBuilder sb = new StringBuilder();
-        for (int i = start; i < end; i++){
+        for (int i = start; i < end; i++) {
             sb.append(args[i]);
             if (i + 1 != end) sb.append(separator);
         }
@@ -77,10 +76,10 @@ public class StringUtil {
     public static String[] iteratorToStringArray(Iterator<?> iterator){
         ArrayList<String> list = new ArrayList<>();
         iterator.forEachRemaining(item -> list.add(String.valueOf(item)));
-        return list.toArray(new String[] {});
+        return list.toArray(new String[]{});
     }
 
-    /**
+     /**
      * Converts a iterator in to a string array using a given function
      * @param iterator object iterator
      * @param function conversion function
@@ -90,7 +89,7 @@ public class StringUtil {
     public static <T> String[] iteratorToStringArray(Iterator<?> iterator, Function<T, String> function){
         ArrayList<String> list = new ArrayList<>();
         iterator.forEachRemaining(item -> list.add(function.apply((T) item)));
-        return list.toArray(new String[] {});
+        return list.toArray(new String[]{});
     }
 
     /**

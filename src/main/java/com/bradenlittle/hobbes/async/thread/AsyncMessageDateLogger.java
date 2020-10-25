@@ -1,6 +1,5 @@
 package com.bradenlittle.hobbes.async.thread;
 
-import com.bradenlittle.hobbes.util.DiscordUtil;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 

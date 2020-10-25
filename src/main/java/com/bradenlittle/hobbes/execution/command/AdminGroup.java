@@ -4,7 +4,6 @@ import com.bradenlittle.hobbes.util.DiscordUtil;
 import com.bradenlittle.hobbes.util.InformationBucket;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
 import java.util.Objects;
 
 /**
@@ -20,15 +19,16 @@ public class AdminGroup implements CommandGroup {
      */
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
-        if (validateSender(event.getAuthor())){
-            switch (args[0]){
-                case "kill": return kill(event);
-                case "call": return call(event);
+        if (validateSender(event.getAuthor())) {
+            switch (args[0]) {
+                case "kill":
+                    return kill(event);
+                case "call":
+                    return call(event);
             }
         }
         return false;
     }
-
     /**
      * Validates that the sender is actually the registered admin.
      * @param sender the user who send the command

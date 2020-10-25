@@ -3,7 +3,8 @@ package com.bradenlittle.hobbes.async.thread;
 import com.bradenlittle.hobbes.util.IO;
 import com.bradenlittle.hobbes.util.InformationBucket;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
