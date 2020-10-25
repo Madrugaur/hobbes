@@ -11,36 +11,44 @@ public class DiscordUtil {
     public static void queueMessage(String text, TextChannel channel) {
         channel.sendMessage(text).queue();
     }
-    public static void queueErrorMessage(String text, TextChannel channel){
+
+    public static void queueErrorMessage(String text, TextChannel channel) {
         channel.sendMessage(wrapText("```diff\n-%s\n```", text)).queue();
     }
-    public static String wrapText(String wrapper, String text){
+
+    public static String wrapText(String wrapper, String text) {
         return String.format(wrapper, text);
     }
+
     public static void queueFile(File f, MessageReceivedEvent event) {
         event.getChannel().sendFile(f).queue();
     }
+
     public static void queueTyping(TextChannel channel) {
         channel.sendTyping().queue();
     }
-    public static Role findRole(String role, Guild guild){
+
+    public static Role findRole(String role, Guild guild) {
         List<Role> searchResults = guild.getRolesByName(role, true);
         if (searchResults.size() == 0) return null;
         else return searchResults.get(0);
     }
-    public static boolean assignRole(Role role, Member member){
+
+    public static boolean assignRole(Role role, Member member) {
         member.getGuild().addRoleToMember(member, role).queue();
         return true;
     }
-    public static boolean isRestricted(Role role){
+
+    public static boolean isRestricted(Role role) {
         HashMap<String, String> restrictedRoles = InformationBucket.fromServer("restricted.roles");
-        if (restrictedRoles.containsKey(role.getName())) { return true; }
-        else return false;
+        return restrictedRoles.containsKey(role.getName());
     }
-    public static User getUser(long id){
+
+    public static User getUser(long id) {
         return InformationBucket.getJDA().getUserById(id);
     }
-    public static User getUser(String tag){
+
+    public static User getUser(String tag) {
         List<User> list = InformationBucket.getJDA().getUsers();
         return InformationBucket.getJDA().getUserById(tag);
     }

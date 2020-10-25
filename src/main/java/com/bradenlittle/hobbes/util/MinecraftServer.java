@@ -16,6 +16,7 @@ public class MinecraftServer {
     static {
 
     }
+
     public static boolean isAlive() {
         return proc != null && proc.isAlive();
     }

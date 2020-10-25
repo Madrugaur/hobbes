@@ -4,17 +4,14 @@ import com.bradenlittle.hobbes.async.schedule.InactiveUserSearchTask;
 import com.bradenlittle.hobbes.async.schedule.Scheduler;
 import com.bradenlittle.hobbes.async.schedule.StripOfflineRoleTask;
 import com.bradenlittle.hobbes.async.thread.AsyncMessageDateLogger;
-import com.bradenlittle.hobbes.util.*;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.*;
+import com.bradenlittle.hobbes.util.Clock;
+import com.bradenlittle.hobbes.util.DiscordUtil;
+import com.bradenlittle.hobbes.util.InformationBucket;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*  *-------*
     | IDEAS:
@@ -52,6 +49,7 @@ public class Listener extends ListenerAdapter {
         InformationBucket.runtimeInit(event);
         scheduleTasks();
     }
+
     private void scheduleTasks() {
         if (InformationBucket.getOnline() != null) {
             Scheduler.scheduleRegular(new StripOfflineRoleTask(InformationBucket.getGuild().getMembers(), InformationBucket.getGuild(), InformationBucket.getOnline()), Clock.getMinutes(5));
@@ -68,12 +66,12 @@ public class Listener extends ListenerAdapter {
     @Override
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
         if (event.getNewOnlineStatus().name().contentEquals("ONLINE")) {
-            event.getGuild(). addRoleToMember(event.getMember(), InformationBucket.getOnline()).complete();
+            event.getGuild().addRoleToMember(event.getMember(), InformationBucket.getOnline()).complete();
         }
     }
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-            Executor.execute(event);
+        Executor.execute(event);
     }
 }

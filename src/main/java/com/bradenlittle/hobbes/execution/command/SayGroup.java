@@ -10,7 +10,8 @@ public class SayGroup implements CommandGroup {
     public boolean process(MessageReceivedEvent event, String[] args) {
         return say(event.getTextChannel(), args);
     }
-    private boolean say(TextChannel channel, String[] args){
+
+    private boolean say(TextChannel channel, String[] args) {
         if (args.length == 0) {
             DiscordUtil.queueMessage("Nothing to say!", channel);
             return false;

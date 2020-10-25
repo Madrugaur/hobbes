@@ -3,17 +3,18 @@ package com.bradenlittle.hobbes.async.thread;
 import com.bradenlittle.hobbes.util.IO;
 import com.bradenlittle.hobbes.util.InformationBucket;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.*;
 
 public class SQLTaskExecutor {
-    private static BlockingQueue<SQLTask> tasks;
-    private static Connection connection;
-    private static Thread thread;
-    private static ExecutorService executorService;
+    private static final BlockingQueue<SQLTask> tasks;
+    private static final Connection connection;
+    private static final Thread thread;
+    private static final ExecutorService executorService;
 
     static {
         connection = IO.getSQLConnection(InformationBucket.fromPackage("sql.url").replace("{resource_dir}", IO.getResourceDir()));

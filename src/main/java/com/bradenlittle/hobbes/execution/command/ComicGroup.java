@@ -5,7 +5,6 @@ import com.bradenlittle.hobbes.util.DiscordUtil;
 import com.bradenlittle.hobbes.util.IO;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
 import java.net.MalformedURLException;
 
 public class ComicGroup implements CommandGroup {
@@ -13,7 +12,8 @@ public class ComicGroup implements CommandGroup {
     public boolean process(MessageReceivedEvent event, String[] args) {
         return paste(event.getTextChannel());
     }
-    private boolean paste(TextChannel channel){
+
+    private boolean paste(TextChannel channel) {
         DiscordUtil.queueTyping(channel);
         Comic comic = null;
         try {

@@ -1,6 +1,5 @@
 package com.bradenlittle.hobbes.async.thread;
 
-import com.bradenlittle.hobbes.util.DiscordUtil;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.User;
 
@@ -13,13 +12,14 @@ public class AsyncMessageDateLogger {
                 "CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, user_id TEXT, date TEXT)"
         );
         String command = "insert or replace into messages (id, user_id, date) values" +
-                "((select id from messages where user_id = \'%s\'), \'%s\', %s);";
+                "((select id from messages where user_id = '%s'), '%s', %s);";
         String tag = message.getAuthor().getId();
         task.addStatement(
                 command,
                 tag, tag, new Date().getTime());
         SQLTaskExecutor.queue(task);
     }
+
     public static void log(User sender) {
         SQLTask task = new SQLTask();
         task.addStatement(

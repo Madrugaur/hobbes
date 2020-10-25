@@ -2,13 +2,16 @@ package com.bradenlittle.hobbes.execution;
 
 import com.bradenlittle.hobbes.async.thread.AsyncMessageDateLogger;
 import com.bradenlittle.hobbes.execution.command.*;
-import com.bradenlittle.hobbes.util.*;
-import net.dv8tion.jda.api.entities.*;
+import com.bradenlittle.hobbes.util.DiscordUtil;
+import com.bradenlittle.hobbes.util.InformationBucket;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+
 import java.util.List;
 
 public class Executor {
-    public static boolean execute(MessageReceivedEvent event){
+    public static boolean execute(MessageReceivedEvent event) {
         User sender = event.getAuthor();
         Message message = event.getMessage();
         List<User> mentions = message.getMentionedUsers();
@@ -33,7 +36,7 @@ public class Executor {
                 args = raw_command.substring(space_index + 1).split(" ");
             }
             CommandGroup group = getGroup(command);
-            if (group != null){
+            if (group != null) {
                 group.process(event, args);
             } else {
                 DiscordUtil.queueErrorMessage(command + " is an unknown command!", event.getTextChannel());
@@ -42,15 +45,23 @@ public class Executor {
         }
         return true;
     }
-    private static CommandGroup getGroup(String command){
+
+    private static CommandGroup getGroup(String command) {
         switch (command) {
-            case "admin": return new AdminGroup();
-            case "say": return new SayGroup();
-            case "comic": return new ComicGroup();
-            case "draw": return new DrawGroup();
-            case "server": return new ServerGroup();
-            case "help": return new HelpGroup();
-            case "role": return new RoleGroup();
+            case "admin":
+                return new AdminGroup();
+            case "say":
+                return new SayGroup();
+            case "comic":
+                return new ComicGroup();
+            case "draw":
+                return new DrawGroup();
+            case "server":
+                return new ServerGroup();
+            case "help":
+                return new HelpGroup();
+            case "role":
+                return new RoleGroup();
         }
         return null;
     }
