@@ -9,6 +9,10 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Represents all of the commands that can be done with the role command
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class RoleGroup implements CommandGroup {
     /**
      * Commands are parsed in this function and the correct method is called to handle the behavior.

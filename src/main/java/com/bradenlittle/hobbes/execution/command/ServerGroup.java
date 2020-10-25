@@ -6,6 +6,10 @@ import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.w3c.dom.Text;
 
+/**
+ * Represents the commands that can be done using the server command
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class ServerGroup implements CommandGroup {
     /**
      * Commands are parsed in this function and the correct method is called to handle the behavior.

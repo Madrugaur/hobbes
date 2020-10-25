@@ -5,6 +5,10 @@ import com.bradenlittle.hobbes.util.StringUtil;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+/**
+ * Represents all of the commands that can be done with the say command
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class SayGroup implements CommandGroup {
     /**
      * Commands are parsed in this function and the correct method is called to handle the behavior.

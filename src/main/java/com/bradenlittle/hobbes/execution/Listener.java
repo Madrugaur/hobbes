@@ -45,13 +45,25 @@ import java.util.List;
     |   + allows for unique behavior and better organization
     *-------*
  */
-public class Listener extends ListenerAdapter {
 
+/**
+ * The methods of this class are called by the JDA when events happen in a discord server this bot is connected to.
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
+public class Listener extends ListenerAdapter {
+    /**
+     * Fired when the bot comes fully online.
+     * @param event
+     */
     @Override
     public void onReady(ReadyEvent event) {
         InformationBucket.runtimeInit(event);
         scheduleTasks();
     }
+
+    /**
+     * Schedules all of the async task that are needed
+     */
     private void scheduleTasks() {
         if (InformationBucket.getOnline() != null) {
             Scheduler.scheduleRegular(new StripOfflineRoleTask(InformationBucket.getGuild().getMembers(), InformationBucket.getGuild(), InformationBucket.getOnline()), Clock.getMinutes(5));
@@ -59,12 +71,20 @@ public class Listener extends ListenerAdapter {
         Scheduler.scheduleRegular(new InactiveUserSearchTask(), Clock.getDays(7));
     }
 
+    /**
+     * Fires when a new member joins the guild
+     * @param event event
+     */
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         DiscordUtil.queueMessage(InformationBucket.fromMessages("welcome"), InformationBucket.fromTextChannelTable("general"));
         AsyncMessageDateLogger.log(event.getUser());
     }
 
+    /**
+     * Fires when a user's online status is updated. Usually when they come online
+     * @param event event
+     */
     @Override
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
         if (event.getNewOnlineStatus().name().contentEquals("ONLINE")) {
@@ -72,6 +92,10 @@ public class Listener extends ListenerAdapter {
         }
     }
 
+    /**
+     * Fires when a message is received
+     * @param event event
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
             Executor.execute(event);
