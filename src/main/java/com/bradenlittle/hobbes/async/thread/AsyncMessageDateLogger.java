@@ -28,16 +28,14 @@ public class AsyncMessageDateLogger {
     public static void log(User sender) {
         SQLTask task = new SQLTask();
         task.addStatement(
-                "CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, user_id TEXT, date TEXT)",
-                new Object[]{}
+                "CREATE TABLE IF NOT EXISTS messages (id INTEGER PRIMARY KEY, user_id TEXT, date TEXT)"
         );
         String command = "insert or replace into messages (id, user_id, date) values" +
                 "((select id from messages where user_id = %s), %s, %s);";
         String tag = sender.getId();
         task.addStatement(
                 command,
-                new Object[] { tag, tag, new Date().getTime()}
-        );
+                tag, tag, new Date().getTime());
         SQLTaskExecutor.queue(task);
     }
 }

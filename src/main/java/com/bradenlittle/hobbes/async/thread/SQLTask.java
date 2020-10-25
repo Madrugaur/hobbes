@@ -23,7 +23,7 @@ public class SQLTask {
      * @param command a string containing an SQL command
      * @param args the arguments that will be inserted into this command
      */
-    public void addStatement(String command, Object[] args){
+    public void addStatement(String command, Object... args){
         statements.add(command);
         arguments.add(args);
     }

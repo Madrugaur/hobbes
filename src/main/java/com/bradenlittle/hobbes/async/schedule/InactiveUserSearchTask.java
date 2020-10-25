@@ -26,7 +26,7 @@ public class InactiveUserSearchTask extends TimerTask {
     @Override
     public void run() {
         SQLTask search = new SQLTask();
-        search.addStatement("SELECT user_id FROM messages WHERE date < %s", new Object[] { new Date().getTime() - Clock.getDays(7)});
+        search.addStatement("SELECT user_id FROM messages WHERE date < %s", new Date().getTime() - Clock.getDays(7));
         try {
             ResultSet results = SQLTaskExecutor.query(search).get();
             while (results.next()){
