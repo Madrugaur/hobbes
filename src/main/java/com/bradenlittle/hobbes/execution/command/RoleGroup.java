@@ -9,7 +9,17 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import java.util.List;
 import java.util.function.Function;
 
+/**
+ * Represents all of the commands that can be done with the role command
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class RoleGroup implements CommandGroup {
+    /**
+     * Commands are parsed in this function and the correct method is called to handle the behavior.
+     * @param event the event that contains the command from the user
+     * @param args arguments passed in by the user
+     * @return if the action was completed successfully
+     */
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         switch (args[0]) {
@@ -21,7 +31,13 @@ public class RoleGroup implements CommandGroup {
         return false;
     }
 
-    private boolean list(MessageReceivedEvent event, String[] args) {
+    /**
+     * List all of the roles available on this server
+     * @param event event with command
+     * @param args arguments
+     * @return if the operation was successful
+     */
+    private boolean list(MessageReceivedEvent event, String[] args){
         try {
             List<Role> roles = event.getGuild().getRoles();
             Function<Role, String> wrapRoleName = (i) -> (DiscordUtil.wrapText("> %s", i.getName().replace("@", "")));
@@ -34,7 +50,13 @@ public class RoleGroup implements CommandGroup {
         return true;
     }
 
-    private boolean assign(MessageReceivedEvent event, String[] args) {
+    /**
+     * Attempts to assign a role to the sender of the message
+     * @param event message event
+     * @param args role to assign
+     * @return if the operation was successful
+     */
+    private boolean assign(MessageReceivedEvent event, String[] args){
         TextChannel channel = event.getTextChannel();
         if (args.length != 0) {
             String target = StringUtil.construct(args, 1);

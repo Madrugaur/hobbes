@@ -2,14 +2,29 @@ package com.bradenlittle.hobbes.util;
 
 import java.io.*;
 
+/**
+ * Utility classes for dealing with stream injection and reading
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class StreamUtil {
-    public static class Jack extends Thread {
+    /**
+     * Represents a Stream Jack, i.e. an object that listens to the output of a stream
+     * @author Madrugaur (https://github.com/Madrugaur)
+     */
+    public static class Jack extends Thread{
         InputStream is;
 
-        public Jack(InputStream is) {
+        /**
+         * Constructor, inits variables
+         * @param is the stream to listen to
+         */
+        public Jack(InputStream is){
             this.is = is;
         }
 
+        /**
+         * Continually listens to the output of a stream
+         */
         public void run() {
             try {
                 InputStreamReader isr = new InputStreamReader(is);
@@ -22,15 +37,27 @@ public class StreamUtil {
             }
         }
     }
-
+    /**
+     * Represents a Stream Injector, i.e. an object that injects data into a stream
+     * @author Madrugaur (https://github.com/Madrugaur)
+     */
     public static class Injector {
         OutputStream os;
 
-        public Injector(OutputStream os) {
+        /**
+         * Constructor, inits variables
+         * @param os
+         */
+        public Injector(OutputStream os){
             this.os = os;
         }
 
-        public boolean send(String input) {
+        /**
+         * Pushes data into a stream
+         * @param input data
+         * @return if the operation was successful
+         */
+        public boolean send(String input){
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(os));
             try {
                 bw.write(input);
