@@ -17,23 +17,51 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * Manages IO operations
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class IO {
     private static String user_dir = System.getProperty("user.dir");
     private static String res_dir = "src/main/resources";
     //private static String connection = "jdbc:sqlite:" + res_dir +"/hobbes.db";
+
+    /**
+     * Returns the path to the resource directory
+     * @return path to res dir
+     */
     public static String getResourceDir(){
         return res_dir;
     }
+
+    /**
+     * Attempts to make a JSONObject based of the file name passed in
+     * @param name name of file
+     * @return JSONObject
+     * @throws IOException if the file DNE or is not a proper json file
+     */
     public static JSONObject readJSON(String name) throws IOException {
         String source = readString(name);
         JSONObject jobj = new JSONObject(source);
         return jobj;
     }
+
+    /**
+     * Attempts to read the contents of a file as a string
+     * @param name name of file
+     * @return string contents
+     * @throws IOException if the file DNE
+     */
     public static String readString(String name) throws IOException {
         String source = Files.readString(Paths.get(user_dir, res_dir, name));
         return source;
     }
-    @SuppressWarnings({})
+
+    /**
+     * Attempts to scrape an 'Calvin and Hobbes' image url from gocomics.com
+     * @return object representation of the comic
+     * @throws MalformedURLException if the url is invalid
+     */
     public static Comic getComic() throws MalformedURLException {
         URL url = new URL("https://www.gocomics.com/random/calvinandhobbes");
         Comic comic = new Comic();
@@ -53,6 +81,12 @@ public class IO {
         }
         return comic;
     }
+
+    /**
+     * Returns a connection to a specified SQL server
+     * @param connection sql jdbc connection string
+     * @return Connection
+     */
     public static Connection getSQLConnection(String connection){
         try {
             return DriverManager.getConnection(connection);
