@@ -10,6 +10,12 @@ import java.util.List;
 import java.util.function.Function;
 
 public class RoleGroup implements CommandGroup {
+    /**
+     * Commands are parsed in this function and the correct method is called to handle the behavior.
+     * @param event the event that contains the command from the user
+     * @param args arguments passed in by the user
+     * @return if the action was completed successfully
+     */
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         switch (args[0]){
@@ -18,6 +24,13 @@ public class RoleGroup implements CommandGroup {
         }
         return false;
     }
+
+    /**
+     * List all of the roles available on this server
+     * @param event event with command
+     * @param args arguments
+     * @return if the operation was successful
+     */
     private boolean list(MessageReceivedEvent event, String[] args){
         try {
             List<Role> roles = event.getGuild().getRoles();
@@ -30,6 +43,13 @@ public class RoleGroup implements CommandGroup {
         }
         return true;
     }
+
+    /**
+     * Attempts to assign a role to the sender of the message
+     * @param event message event
+     * @param args role to assign
+     * @return if the operation was successful
+     */
     private boolean assign(MessageReceivedEvent event, String[] args){
         TextChannel channel = event.getTextChannel();
         if (args.length != 0){

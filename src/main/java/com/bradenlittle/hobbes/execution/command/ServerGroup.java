@@ -7,6 +7,12 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.w3c.dom.Text;
 
 public class ServerGroup implements CommandGroup {
+    /**
+     * Commands are parsed in this function and the correct method is called to handle the behavior.
+     * @param event the event that contains the command from the user
+     * @param args arguments passed in by the user
+     * @return if the action was completed successfully
+     */
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         switch (args[0]){
@@ -15,6 +21,12 @@ public class ServerGroup implements CommandGroup {
         }
         return false;
     }
+
+    /**
+     * Attempts to start a Minecraft server
+     * @param event message with commmand
+     * @return if the operation was successful
+     */
     private boolean start(MessageReceivedEvent event){
         String mention = event.getAuthor().getAsMention();
         TextChannel channel = event.getTextChannel();
@@ -34,6 +46,12 @@ public class ServerGroup implements CommandGroup {
         }
         return false;
     }
+
+    /**
+     * Attempts to stop a Minecraft server
+     * @param event message with command
+     * @return if the operation was successful
+     */
     private boolean stop(MessageReceivedEvent event){
         String mention = event.getAuthor().getAsMention();
         TextChannel channel = event.getTextChannel();
