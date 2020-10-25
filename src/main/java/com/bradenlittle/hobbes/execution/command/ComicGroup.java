@@ -5,10 +5,9 @@ import com.bradenlittle.hobbes.util.DiscordUtil;
 import com.bradenlittle.hobbes.util.IO;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
-
 import java.net.MalformedURLException;
 
-public class ComicGroup extends CommandGroup {
+public class ComicGroup implements CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         return paste(event.getTextChannel());

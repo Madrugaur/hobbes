@@ -5,7 +5,7 @@ import com.bradenlittle.hobbes.util.Shape;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class DrawGroup extends CommandGroup {
+public class DrawGroup implements CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         return false;

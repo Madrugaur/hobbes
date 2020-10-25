@@ -5,7 +5,7 @@ import com.bradenlittle.hobbes.util.InformationBucket;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
-public class HelpGroup extends CommandGroup {
+public class HelpGroup implements CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         return help(event.getTextChannel(), args);

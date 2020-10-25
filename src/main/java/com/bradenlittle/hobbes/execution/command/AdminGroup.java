@@ -4,8 +4,9 @@ import com.bradenlittle.hobbes.util.DiscordUtil;
 import com.bradenlittle.hobbes.util.InformationBucket;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import java.util.Objects;
 
-public class AdminGroup extends CommandGroup {
+public class AdminGroup implements CommandGroup {
     @Override
     public boolean process(MessageReceivedEvent event, String[] args) {
         if (validateSender(event.getAuthor())) {
