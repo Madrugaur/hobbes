@@ -15,8 +15,22 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Entry point, creates the JDA instance
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
 public class Main {
-    public static void main(String[] args) throws IOException, LoginException {
+    /**
+     * Creates a new JDA instance.
+     * The ChunkingFilter and MemberCachePolicy are set so that the member list is updated with ALL of the members of
+     * guild. By default it is just the server owner and the bot.
+     * Intents:
+     * GUILD_PRESENCES: allows the bot to register when someone's presence has changed
+     * GUILD_MEMBERS: allows access to the members list
+     * @param args command line args
+     * @throws LoginException thrown if the client token doesn't match the one Discord has in its servers.
+     */
+    public static void main(String[] args) throws LoginException {
         JDA jda = JDABuilder.createDefault(InformationBucket.fromAuth("token"))
                     .setChunkingFilter(ChunkingFilter.ALL)
                     .setMemberCachePolicy(MemberCachePolicy.ALL)
