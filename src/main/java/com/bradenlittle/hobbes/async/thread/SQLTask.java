@@ -17,7 +17,7 @@ public class SQLTask {
         arguments = new ArrayList<>();
         query = false;
     }
-    public void addStatement(String command, Object[] args){
+    public void addStatement(String command, Object... args){
         statements.add(command);
         arguments.add(args);
     }

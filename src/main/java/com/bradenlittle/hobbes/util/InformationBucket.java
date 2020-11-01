@@ -6,6 +6,7 @@ import net.dv8tion.jda.api.entities.Role;
 import net.dv8tion.jda.api.entities.TextChannel;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.ReadyEvent;
+import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -77,29 +78,33 @@ public final class InformationBucket {
         }
     }
     public static String fromAuth(String key) {
-        if (!keyExists(auth, key)) return null;
-        String val = auth.getString(key);
-        return val;
+        if (!keyExists(auth, key))
+            throw new IllegalArgumentException(String.format("auth key \"%s\" does not exist%n", key));
+        return auth.getString(key);
     }
 
     public static String fromPackage(String key) {
-        if (!keyExists(_package, key)) return null;
+        if (!keyExists(_package, key))
+            throw new IllegalArgumentException(String.format("package key \"%s\" does not exist%n", key));
         return _package.getString(key);
     }
 
     public static HashMap<String, String> fromServer(String key) {
-        if (!keyExists(server, key)) return null;
+        if (!keyExists(server, key))
+            throw new IllegalArgumentException(String.format("server key \"%s\" does not exist%n", key));
         String[] arr = StringUtil.iteratorToStringArray(server.getJSONArray(key).iterator());
         return StringUtil.makeTable(arr, arr);
     }
 
     public static String[] fromHelp(String key) {
-        if (!keyExists(help, key)) return null;
+        if (!keyExists(help, key))
+            throw new IllegalArgumentException(String.format("help key \"%s\" does not exist%n", key));
         JSONArray arr = help.getJSONArray(key);
         return StringUtil.iteratorToStringArray(arr.iterator());
     }
     public static String fromMessages(String key){
-        if (!keyExists(messages, key)) return null;
+        if (!keyExists(messages, key))
+            throw new IllegalArgumentException(String.format("messages key \"%s\" does not exist%n", key));
         return messages.getString(key);
     }
     public static String[][] getHelpPage() {
@@ -112,7 +117,8 @@ public final class InformationBucket {
         return table;
     }
     public static TextChannel fromTextChannelTable(String key){
-        if (!textChannelHashMap.containsKey(key)) return null;
+        if (!textChannelHashMap.containsKey(key))
+            throw new IllegalArgumentException(String.format("text channel table key \"%s\" does not exist%n", key));
         return textChannelHashMap.get(key);
     }
     public static User getMe() {
