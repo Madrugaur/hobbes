@@ -4,17 +4,14 @@ import com.bradenlittle.hobbes.async.schedule.InactiveUserSearchTask;
 import com.bradenlittle.hobbes.async.schedule.Scheduler;
 import com.bradenlittle.hobbes.async.schedule.StripOfflineRoleTask;
 import com.bradenlittle.hobbes.async.thread.AsyncMessageDateLogger;
-import com.bradenlittle.hobbes.util.*;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.entities.*;
+import com.bradenlittle.hobbes.util.Clock;
+import com.bradenlittle.hobbes.util.DiscordUtil;
+import com.bradenlittle.hobbes.util.InformationBucket;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.events.guild.member.GuildMemberJoinEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.events.user.update.UserUpdateOnlineStatusEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /*  *-------*
     | IDEAS:
@@ -45,13 +42,25 @@ import java.util.List;
     |   + allows for unique behavior and better organization
     *-------*
  */
-public class Listener extends ListenerAdapter {
 
+/**
+ * The methods of this class are called by the JDA when events happen in a discord server this bot is connected to.
+ * @author Madrugaur (https://github.com/Madrugaur)
+ */
+public class Listener extends ListenerAdapter {
+    /**
+     * Fired when the bot comes fully online.
+     * @param event
+     */
     @Override
     public void onReady(ReadyEvent event) {
         InformationBucket.runtimeInit(event);
         scheduleTasks();
     }
+
+    /**
+     * Schedules all of the async task that are needed
+     */
     private void scheduleTasks() {
         if (InformationBucket.getOnline() != null) {
             Scheduler.scheduleRegular(new StripOfflineRoleTask(InformationBucket.getGuild().getMembers(), InformationBucket.getGuild(), InformationBucket.getOnline()), Clock.getMinutes(5));
@@ -59,21 +68,33 @@ public class Listener extends ListenerAdapter {
         Scheduler.scheduleRegular(new InactiveUserSearchTask(), Clock.getDays(7));
     }
 
+    /**
+     * Fires when a new member joins the guild
+     * @param event event
+     */
     @Override
     public void onGuildMemberJoin(GuildMemberJoinEvent event) {
         DiscordUtil.queueMessage(InformationBucket.fromMessages("welcome"), InformationBucket.fromTextChannelTable("general"));
         AsyncMessageDateLogger.log(event.getUser());
     }
 
+    /**
+     * Fires when a user's online status is updated. Usually when they come online
+     * @param event event
+     */
     @Override
     public void onUserUpdateOnlineStatus(UserUpdateOnlineStatusEvent event) {
         if (event.getNewOnlineStatus().name().contentEquals("ONLINE")) {
-            event.getGuild(). addRoleToMember(event.getMember(), InformationBucket.getOnline()).complete();
+            event.getGuild().addRoleToMember(event.getMember(), InformationBucket.getOnline()).complete();
         }
     }
 
+    /**
+     * Fires when a message is received
+     * @param event event
+     */
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-            Executor.execute(event);
+        Executor.execute(event);
     }
 }
