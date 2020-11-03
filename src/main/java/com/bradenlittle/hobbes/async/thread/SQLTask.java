@@ -27,7 +27,6 @@ public class SQLTask {
         statements.add(command);
         arguments.add(args);
     }
-
     /**
      * Returns a list of all of the statements that have been added to this task
      * @return a list of statements
